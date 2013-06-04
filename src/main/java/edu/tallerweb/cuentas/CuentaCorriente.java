@@ -16,15 +16,18 @@ package edu.tallerweb.cuentas;
  * Pasaremos a deberle al banco $ 105 en total: los $ 100 que
  * nos cubrió, más el 5% adicional sobre el descubierto otorgado.
  */
-public class CuentaCorriente {
-
+public class CuentaCorriente extends AbstractCuenta {
+	private Double descubiertoTotal;
+	private Double descubierto;
+	private Double deuda;
 	/**
 	 * Toda cuenta corriente se inicia con un límite total
 	 * para el descubierto.
 	 * @param descubiertoTotal
 	 */
 	public CuentaCorriente(final Double descubiertoTotal) {
-		throw new RuntimeException("No implementado aún");
+		this.descubiertoTotal = descubiertoTotal;
+		this.descubierto = this.descubiertoTotal;
 	}
 	
 	/**
@@ -34,7 +37,17 @@ public class CuentaCorriente {
 	 * @param monto a depositar
 	 */
 	public void depositar(final Double monto) {
-		throw new RuntimeException("No implementado aún");
+		if(this.descubierto == this.descubiertoTotal) {
+			this.saldo += monto; }
+		else {
+			if(monto > this.deuda) {
+				this.descubierto += this.deuda;
+				this.saldo += monto - this.deuda;
+				this.deuda = 0.0; }
+			else {
+				this.descubierto += monto; }
+		}
+
 	}
 
 	/**
@@ -45,7 +58,16 @@ public class CuentaCorriente {
 	 * @param monto a extraer
 	 */
 	public void extraer(final Double monto) {
-		throw new RuntimeException("No implementado aún");
+		if(this.saldo + this.descubierto < monto) {
+			throw new CuentaBancariaException("No hay suficiente saldo para la extraccion"); }
+		if(this.saldo < monto) {
+			this.deuda = monto - this.saldo;
+			this.saldo = 0.0;
+			this.descubierto -= this.deuda;
+			this.descubierto -= this.deuda * 0.05;
+			this.deuda += this.deuda * 0.05; }
+		else {
+			this.saldo -= monto; }
 	}
 
 	/**
@@ -53,7 +75,7 @@ public class CuentaCorriente {
 	 * @return el saldo de la cuenta
 	 */
 	public Double getSaldo() {
-		throw new RuntimeException("No implementado aún");
+		return this.saldo;
 	}
 	
 	/**
@@ -61,7 +83,7 @@ public class CuentaCorriente {
 	 * @return el descubierto de la cuenta
 	 */
 	public Double getDescubierto() {
-		throw new RuntimeException("No implementado aún");
+		return this.descubierto;
 	}
 
 }
