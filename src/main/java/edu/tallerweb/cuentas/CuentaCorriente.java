@@ -37,6 +37,8 @@ public class CuentaCorriente extends AbstractCuenta {
 	 * @param monto a depositar
 	 */
 	public void depositar(final Double monto) {
+		if(monto < 0.0) 
+			throw new CuentaBancariaException("El monto no puede ser negativo");
 		if(this.descubierto == this.descubiertoTotal) {
 			this.saldo += monto; }
 		else {
@@ -58,6 +60,8 @@ public class CuentaCorriente extends AbstractCuenta {
 	 * @param monto a extraer
 	 */
 	public void extraer(final Double monto) {
+		if(monto < 0.0) 
+			throw new CuentaBancariaException("El monto no puede ser negativo");
 		if(this.saldo + this.descubierto < monto) {
 			throw new CuentaBancariaException("No hay suficiente saldo para la extraccion"); }
 		if(this.saldo < monto) {

@@ -66,6 +66,30 @@ public class CuentaTests {
 
 		cuentaCorriente.extraer(4000.0);
 	}
+	
+	@Test(expected=CuentaBancariaException.class)
+	public void queNoSePuedaDepositarMontoNegativo() {
+		CuentaSueldo cuenta = new CuentaSueldo();
+		cuenta.depositar(-3500.0);
+
+		CajaAhorros cuentaAhorros = new CajaAhorros();
+		cuentaAhorros.depositar(-3500.0);
+
+		CuentaCorriente cuentaCorriente = new CuentaCorriente(100.0);
+		cuentaCorriente.depositar(-3500.0);
+	}
+	
+	@Test(expected=CuentaBancariaException.class)
+	public void queNoSePuedaExtraerMontoNegativo() {
+		CuentaSueldo cuenta = new CuentaSueldo();
+		cuenta.extraer(-3500.0);
+
+		CajaAhorros cuentaAhorros = new CajaAhorros();
+		cuentaAhorros.extraer(-3500.0);
+
+		CuentaCorriente cuentaCorriente = new CuentaCorriente(100.0);
+		cuentaCorriente.extraer(-3500.0);
+	}
 
 	@Test
 	public void queEnCajaDeAhorrosDespuesDeLaQuintaExtraccionSeCobraCostoAdicional() {
