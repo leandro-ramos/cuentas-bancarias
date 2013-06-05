@@ -90,6 +90,14 @@ public class CuentaTests {
 		CuentaCorriente cuentaCorriente = new CuentaCorriente(100.0);
 		cuentaCorriente.extraer(-3500.0);
 	}
+	
+	@Test(expected=CuentaBancariaException.class)
+	public void queNoSePuedeExtraerEnDescubiertoDeUnaCuentaCorrienteMasDelDisponibleConImpuesto() {
+		CuentaCorriente cuenta = new CuentaCorriente(100.0);
+		cuenta.depositar(100.0);
+		
+		cuenta.extraer(197.0);
+	}
 
 	@Test
 	public void queEnCajaDeAhorrosDespuesDeLaQuintaExtraccionSeCobraCostoAdicional() {

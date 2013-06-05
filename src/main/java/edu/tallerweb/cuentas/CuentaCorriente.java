@@ -20,6 +20,7 @@ public class CuentaCorriente extends AbstractCuenta {
 	private Double descubiertoTotal;
 	private Double descubierto;
 	private Double deuda;
+	private Double adicional = 0.05;
 	/**
 	 * Toda cuenta corriente se inicia con un límite total
 	 * para el descubierto.
@@ -37,12 +38,12 @@ public class CuentaCorriente extends AbstractCuenta {
 	 * @param monto a depositar
 	 */
 	public void depositar(final Double monto) {
-		if(monto < 0.0) 
-			throw new CuentaBancariaException("El monto no puede ser negativo");
-		if(this.descubierto == this.descubiertoTotal) {
+		if (monto < 0.0) {
+			throw new CuentaBancariaException("El monto no puede ser negativo"); }
+		if (this.descubierto == this.descubiertoTotal) {
 			this.saldo += monto; }
 		else {
-			if(monto > this.deuda) {
+			if (monto > this.deuda) {
 				this.descubierto += this.deuda;
 				this.saldo += monto - this.deuda;
 				this.deuda = 0.0; }
@@ -60,18 +61,21 @@ public class CuentaCorriente extends AbstractCuenta {
 	 * @param monto a extraer
 	 */
 	public void extraer(final Double monto) {
-		if(monto < 0.0) 
-			throw new CuentaBancariaException("El monto no puede ser negativo");
-		if(this.saldo + this.descubierto < monto) {
+		if (monto < 0.0) {
+			throw new CuentaBancariaException("El monto no puede ser negativo"); }
+		if (this.saldo + this.descubierto <= monto) {
 			throw new CuentaBancariaException("No hay suficiente saldo para la extraccion"); }
-		if(this.saldo < monto) {
+		if (this.saldo > monto) {
+			this.saldo -= monto; }
+		else {
 			this.deuda = monto - this.saldo;
 			this.saldo = 0.0;
-			this.descubierto -= this.deuda;
-			this.descubierto -= this.deuda * 0.05;
-			this.deuda += this.deuda * 0.05; }
-		else {
-			this.saldo -= monto; }
+			this.deuda += this.deuda * this.adicional;
+			if (this.deuda > this.descubiertoTotal) {
+				throw new CuentaBancariaException("No hay suficiente saldo para la extraccion"); }
+			else {
+				this.descubierto -= this.deuda;	}
+		}
 	}
 
 	/**

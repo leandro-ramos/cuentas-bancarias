@@ -13,8 +13,8 @@ public class CuentaSueldo extends AbstractCuenta {
 	 * @param monto a depositar
 	 */
 	public void depositar(final Double monto) {
-		if(monto < 0.0) 
-			throw new CuentaBancariaException("El monto no puede ser negativo");
+		if (monto < 0.0) {
+			throw new CuentaBancariaException("El monto no puede ser negativo"); }
 		this.saldo = this.saldo + monto;
 	}
 
@@ -23,12 +23,12 @@ public class CuentaSueldo extends AbstractCuenta {
 	 * @param monto a extraer
 	 */
 	public void extraer(final Double monto) {
-		if(monto < 0.0) 
-			throw new CuentaBancariaException("El monto no puede ser negativo");
-		if(this.saldo > monto)
-			this.saldo = this.saldo - monto;
-		else
-			throw new CuentaBancariaException("No hay suficiente saldo para la extraccion");			
+		if (monto < 0.0) {
+			throw new CuentaBancariaException("El monto no puede ser negativo"); }
+		if (this.saldo > monto) {
+			this.saldo = this.saldo - monto; }
+		else {
+			throw new CuentaBancariaException("No hay suficiente saldo"); }			
 	}
 
 	/**
