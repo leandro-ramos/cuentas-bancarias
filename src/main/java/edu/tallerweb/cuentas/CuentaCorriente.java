@@ -30,7 +30,7 @@ public class CuentaCorriente extends AbstractCuenta {
 		this.descubiertoTotal = descubiertoTotal;
 		this.descubierto = this.descubiertoTotal;
 	}
-	
+
 	/**
 	 * Todo depósito deberá cubrir primero el descubierto,
 	 * si lo hubiera, y luego contar para el saldo de la
@@ -85,7 +85,7 @@ public class CuentaCorriente extends AbstractCuenta {
 	public Double getSaldo() {
 		return this.saldo;
 	}
-	
+
 	/**
 	 * Permite saber el saldo en descubierto
 	 * @return el descubierto de la cuenta

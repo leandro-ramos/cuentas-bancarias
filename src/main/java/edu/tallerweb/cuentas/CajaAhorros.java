@@ -13,7 +13,8 @@ public class CajaAhorros extends AbstractCuenta {
 	 */
 	public void depositar(final Double monto) {
 		if (monto < 0.0) {
-			throw new CuentaBancariaException("El monto no puede ser negativo"); }
+			throw new CuentaBancariaException("El monto no puede ser negativo"); 
+		}
 		this.saldo = this.saldo + monto;
 	}
 

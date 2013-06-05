@@ -28,7 +28,7 @@ public class CuentaSueldo extends AbstractCuenta {
 		if (this.saldo > monto) {
 			this.saldo = this.saldo - monto; }
 		else {
-			throw new CuentaBancariaException("No hay suficiente saldo"); }			
+			throw new CuentaBancariaException("No hay suficiente saldo"); }
 	}
 
 	/**
